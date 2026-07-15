@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: servicio-cita
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: servicio-cita
+
+  template:
+    metadata:
+      labels:
+        app: servicio-cita
+
+    spec:
+      containers:
+        - name: servicio-cita
+
+          image: servicio-cita:v1
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 3003
+
+          envFrom:
+            - configMapRef:
+                name: cita-config
+
+            - secretRef:
+                name: cita-secret
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

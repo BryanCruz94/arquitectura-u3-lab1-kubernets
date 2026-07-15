@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+
+
+servicio-cita/node_modules/
+servicio-medico/node_modules/
+servicio-paciente/node_modules/
+

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: medico-config
+
+data:
+  PORT: "3002"

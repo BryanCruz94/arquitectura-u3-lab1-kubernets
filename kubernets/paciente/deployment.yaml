@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: servicio-paciente
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: servicio-paciente
+
+  template:
+    metadata:
+      labels:
+        app: servicio-paciente
+
+    spec:
+      containers:
+        - name: servicio-paciente
+
+          image: servicio-paciente:v1
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 3001
+
+          envFrom:
+            - configMapRef:
+                name: paciente-config
+
+            - secretRef:
+                name: paciente-secret
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

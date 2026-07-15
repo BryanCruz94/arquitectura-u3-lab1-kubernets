@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: servicio-medico
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: servicio-medico
+
+  template:
+    metadata:
+      labels:
+        app: servicio-medico
+
+    spec:
+      containers:
+        - name: servicio-medico
+
+          image: servicio-medico:v1
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 3002
+
+          envFrom:
+            - configMapRef:
+                name: medico-config
+
+            - secretRef:
+                name: medico-secret
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
