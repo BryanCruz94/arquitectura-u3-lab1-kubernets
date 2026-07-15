@@ -15,16 +15,16 @@ export const obtenerCitaId = async (id: number) => {
 };
 
 export const crearCita = async (data: any) => {
-  const paciente = await fetch('http://servicio-paciente/api/pacientes/' + data.pacienteId);
-  const medico = await fetch('http://servicio-medico/api/medicos/' + data.medicoId);
+  const paciente = await fetch('http://paciente-service:3001/api/pacientes/' + data.pacienteId);
+  const medico = await fetch('http://medico-service:3002/api/medicos/' + data.medicoId);
+
   if (!paciente.ok) {
     throw new Error("Paciente no encontrado");
   }
+
   if (!medico.ok) {
     throw new Error("Médico no encontrado");
   }
-
-
 
   return await Cita.create(data);
 };
